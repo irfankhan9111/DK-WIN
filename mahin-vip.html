@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>『AK彡𝐕𝐈𝐏 𝐒𝐈𝐆𝐍𝐀𝐋</title>
+    <style>
+        html, body { 
+            margin:0; 
+            padding:0; 
+            height:100%; 
+            width:100%; 
+            overflow:hidden; 
+        }
+        iframe { 
+            position:absolute; 
+            top:0; 
+            left:0; 
+            width:100%; 
+            height:100%; 
+            border:none; 
+            z-index:1; 
+        }
+
+        .box {
+            width: 120px;
+            height: auto;
+            background: linear-gradient(135deg, #0f0f1e, #1a1a2e);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            box-shadow: 0 0 15px rgba(0,255,255,0.6), inset 0 0 15px rgba(0,255,255,0.2);
+            color: #00ffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 10px 5px;
+            position: fixed; 
+            top: 60px; 
+            left: 20px; 
+            z-index: 9999;
+            cursor: move; 
+            user-select: none;
+            backdrop-filter: blur(8px);
+            animation: borderGlow 4s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0%,100% { border-color: #00ffff; box-shadow: 0 0 15px rgba(0,255,255,0.6); }
+            50%     { border-color: #ff00ff; box-shadow: 0 0 25px rgba(255,0,255,0.9); }
+        }
+
+        @keyframes signalFlash {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.1); box-shadow: 0 0 30px #00ffff; }
+            100% { transform: scale(1); }
+        }
+
+        .title { 
+            font-size: 10px; 
+            font-weight: bold; 
+            background: linear-gradient(90deg, #ffcc00, #ffffff); 
+            -webkit-background-clip: text; 
+            background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .countdown { 
+            font-size: 20px; 
+            color: #ffff00; 
+            font-weight: bold; 
+            text-shadow: 0 0 8px #ffff00; 
+            margin: 5px 0;
+        }
+        
+        .signal {
+            font-size: 24px; 
+            font-weight: 900; 
+            margin-top: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            min-height: 35px;
+        }
+
+        .tg-btn {
+            display: block;
+            margin-top: 10px;
+            padding: 6px;
+            background: #24A1DE;
+            color: white;
+            text-decoration: none;
+            font-size: 9px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .tg-btn:hover { background: #ffffff; color: #24A1DE; }
+        .flash-box { animation: signalFlash 0.6s ease-in-out; }
+
+        #loginPart input {
+            width: 80px; 
+            padding: 5px; 
+            background: rgba(0,0,0,0.6); 
+            border: 1px solid #00ffff;
+            border-radius: 6px; 
+            color: #00ffff; 
+            font-size: 11px; 
+            text-align: center; 
+            margin-bottom: 8px;
+        }
+        
+        #loginPart button {
+            padding: 5px 15px; 
+            background: linear-gradient(45deg, #00ffff, #00ffaa);
+            color: #000; 
+            border: none; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://dkwin9.com/#/register?invitationCode=111421972363"></iframe>
+
+    <div class="box" id="signalBox">
+        <!-- Login UI -->
+        <div id="loginPart">
+            <div class="title">『AK彡𝐕𝐈𝐏 𝐒𝐈𝐆𝐍𝐀𝐋</div>
+            <input type="password" id="passInput" placeholder="Password">
+            <br>
+            <button onclick="checkPassword()">Login</button>
+        </div>
+
+        <!-- Prediction UI -->
+        <div id="signalPart" style="display:none;">
+            <div class="title">『𝐌𝐒彡𝐕𝐈𝐏 𝐒𝐈𝐆𝐍𝐀𝐋</div>
+            <div class="countdown"><span id="countdown">--</span>s</div>
+            <div class="signal" id="predicted">WAIT</div>
+            <a href="https://t.me/mahin_owner_ms_tm_01" target="_blank" class="tg-btn">JOIN TELEGRAM</a>
+        </div>
+    </div>
+
+    <script>
+        let isFetching = false;
+        const box = document.getElementById('signalBox');
+
+        function checkPassword() {
+            const password = document.getElementById('passInput').value;
+            if (password === "Anika99") {
+                document.getElementById('loginPart').style.display = 'none';
+                document.getElementById('signalPart').style.display = 'block';
+                setInterval(updateMarketLogic, 1000);
+            } else {
+                alert("Wrong Access Key!");
+            }
+        }
+
+        function updateMarketLogic() {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const dhakaTime = new Date(utc + (3600000 * 6)); // Dhaka Time
+            
+            const seconds = dhakaTime.getSeconds();
+            const remainingSeconds = seconds >= 30 ? 60 - seconds : 30 - seconds;
+
+            document.getElementById('countdown').textContent = remainingSeconds;
+
+            // Trigger Prediction Analysis at the start of the 30s cycle
+            if (remainingSeconds === 29 && !isFetching) {
+                generatePrediction();
+            }
+
+            if (remainingSeconds <= 2) {
+                isFetching = false; 
+            }
+        }
+
+        function generatePrediction() {
+            isFetching = true;
+            const signalText = document.getElementById('predicted');
+            
+            signalText.textContent = "ANALYZING"; 
+            signalText.style.color = "#ffffff";
+            
+            setTimeout(() => {
+                const outcomes = ["BIG", "SMALL", "BIG", "SMALL"];
+                const result = outcomes[Math.floor(Math.random() * outcomes.length)];
+                
+                signalText.textContent = result;
+                signalText.style.color = (result === "BIG") ? "#ff00ff" : "#00ffff";
+                
+                box.classList.add('flash-box');
+                setTimeout(() => box.classList.remove('flash-box'), 600);
+            }, 1800);
+        }
+
+        // Draggable Functionality
+        let offset = [0,0], isDown = false;
+        const moveStart = (e) => {
+            isDown = true;
+            let clientX = e.clientX || e.touches[0].clientX;
+            let clientY = e.clientY || e.touches[0].clientY;
+            offset = [box.offsetLeft - clientX, box.offsetTop - clientY];
+        };
+        const moveEnd = () => { isDown = false; };
+        const moveAction = (e) => {
+            if (isDown) {
+                let clientX = e.clientX || (e.touches ? e.touches[0].clientX : null);
+                let clientY = e.clientY || (e.touches ? e.touches[0].clientY : null);
+                if(clientX !== null) {
+                    box.style.left = (clientX + offset[0]) + 'px';
+                    box.style.top  = (clientY + offset[1]) + 'px';
+                }
+            }
+        };
+
+        box.addEventListener('mousedown', moveStart);
+        box.addEventListener('touchstart', moveStart);
+        document.addEventListener('mouseup', moveEnd);
+        document.addEventListener('touchend', moveEnd);
+        document.addEventListener('mousemove', moveAction);
+        document.addEventListener('touchmove', moveAction);
+    </script>
+</body>
+</html>
